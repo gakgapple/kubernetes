@@ -1,15 +1,11 @@
 FROM registry.cn-hangzhou.aliyuncs.com/aiyong/alpine-jre1.8u192:1.0
 
 
-COPY logistics-onsconsumer-1.0-SNAPSHOT.jar /srv/logistics.service.aiyongbao.com/logistics-onsconsumer-1.0-SNAPSHOT.jar
+COPY aiyong-java-project.jar /srv/{projectName}.service.aiyongbao.com/{projectName}-{version}-SNAPSHOT.jar
 
-COPY tools.jar /jre/lib/tools.jar
 
-COPY as.sh /srv/as.sh
-# EXPOSE 8080
+VOLUME /srv/{projectName}.service.aiyongbao.com/logs
 
-VOLUME /srv/logistics.service.aiyongbao.com/logs
+WORKDIR "/srv/{projectName}.service.aiyongbao.com"
 
-WORKDIR "/srv/logistics.service.aiyongbao.com"
-
-ENTRYPOINT ["java", "-XX:MaxDirectMemorySize=1G","-Dfile.encoding=UTF-8","-jar","./logistics-onsconsumer-1.0-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "-XX:MaxDirectMemorySize=1G","-Dfile.encoding=UTF-8","-jar","./{projectName}-{version}-SNAPSHOT.jar"]
